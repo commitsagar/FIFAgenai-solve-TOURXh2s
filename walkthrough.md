@@ -38,7 +38,8 @@ FIFA-PromptWars/
 │   │   └── index.css             # Glassmorphism design styling
 │   ├── package.json              # Client packages and Vite configuration
 │   └── vite.config.js
-├── .env                          # Local credentials container
+├── tests/                        # Automated Testing Suite
+│   └── test_main.py              # Pytest/Unittest validation script
 ├── requirements.txt              # Backend dependencies
 └── walkthrough.md                # Deliverable walkthrough documentation (This file)
 ```
@@ -187,3 +188,15 @@ You can test the features directly in your browser at **http://localhost:5173**:
 6. **API Key Integration**:
    - Open the **Settings Modal (⚙️)** in the top right.
    - Supply your Google AI Studio API Key and toggle **Live Gemini API Integration** to run actual live LLM routing!
+
+### 3. Automated Unit Testing Suite (Pytest/Unittest)
+To verify the entire backend integration, config state manager, thread-safe `InMemoryCache`, and fallback capabilities, run the automated test suite:
+```bash
+python3 -m unittest tests/test_main.py
+```
+This executes 8 key test cases covering:
+*   Root server online checks.
+*   GET/POST `/api/config` validation rules.
+*   Routing accuracy for seating wayfinding, concessions menu items, and waste recycling.
+*   Real-time contingency announcements updates.
+*   Duplicate query cache resolutions (Cache Hits).

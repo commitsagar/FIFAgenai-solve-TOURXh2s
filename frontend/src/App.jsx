@@ -101,7 +101,7 @@ export default function App() {
       return;
     }
     const recognition = new SpeechRecognition();
-    const langMap = { en: "en-US", es: "es-ES", fr: "fr-FR", ar: "ar-SA", pt: "pt-BR" };
+    const langMap = { en: "en-US", es: "es-ES", fr: "fr-FR", ar: "ar-SA", pt: "pt-BR", hi: "hi-IN", ta: "ta-IN" };
     recognition.lang = langMap[language] || "en-US";
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
@@ -361,6 +361,7 @@ export default function App() {
         if (result.state) {
           if (result.state.ecoPoints) setEcoPoints(result.state.ecoPoints);
           if (result.state.volunteers) setVolunteers(result.state.volunteers);
+          if (result.state.language) setLanguage(result.state.language);
         }
         return;
       } catch (err) {
@@ -374,11 +375,38 @@ export default function App() {
       const responses = SAOCC_DATA.translations[language].responses;
       let reply = responses.default;
       
-      if (textLower.includes("wheelchair") || textLower.includes("accessible") || textLower.includes("ada") || textLower.includes("elevat")) {
+      if (textLower.includes("switch to") || textLower.includes("speak in") || textLower.includes("translate to") || textLower.includes("change to") || textLower.includes("மாற்று") || textLower.includes("பேசு") || textLower.includes("बात करो") || textLower.includes("बोलो")) {
+        let targetLang = null;
+        if (textLower.includes("spanish") || textLower.includes("espanol") || textLower.includes("español")) {
+          targetLang = "es";
+          reply = "Perfecto, he cambiado el idioma a español. ¿En qué puedo ayudarte?";
+        } else if (textLower.includes("tamil") || textLower.includes("தமிழ்") || textLower.includes("தமிழு")) {
+          targetLang = "ta";
+          reply = "நிச்சயமாக, நான் மொழியை தமிழுக்கு மாற்றியுள்ளேன். நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?";
+        } else if (textLower.includes("hindi") || textLower.includes("हिंदी") || textLower.includes("हिन्दी")) {
+          targetLang = "hi";
+          reply = "बिल्कुल, मैंने भाषा बदलकर हिंदी कर दी है। आज मैं आपकी क्या मदद कर सकता हूँ?";
+        } else if (textLower.includes("english") || textLower.includes("अंग्रेजी") || textLower.includes("ஆங்கிலம்")) {
+          targetLang = "en";
+          reply = "Certainly! I have switched the language to English. How can I help you today?";
+        } else if (textLower.includes("french") || textLower.includes("français") || textLower.includes("francais")) {
+          targetLang = "fr";
+          reply = "D'accord, j'ai changé la langue en français. Comment puis-je vous aider aujourd'hui?";
+        } else if (textLower.includes("portuguese") || textLower.includes("portugues")) {
+          targetLang = "pt";
+          reply = "Com certeza, mudei o idioma para português. Como posso te ajudar hoje?";
+        } else if (textLower.includes("arabic") || textLower.includes("عربي") || textLower.includes("العربية")) {
+          targetLang = "ar";
+          reply = "بالتأكيد، لقد قمت بتغيير اللغة إلى العربية. كيف يمكنني مساعدتك اليوم؟";
+        }
+        if (targetLang) {
+          setLanguage(targetLang);
+        }
+      } else if (textLower.includes("wheelchair") || textLower.includes("accessible") || textLower.includes("ada") || textLower.includes("elevat")) {
         reply = responses.accessibility;
       } else if (textLower.includes("transit") || textLower.includes("train") || textLower.includes("bus") || textLower.includes("manhattan") || textLower.includes("metro")) {
         reply = responses.transit;
-      } else if (textLower.includes("recycle") || textLower.includes("sustainab") || textLower.includes("plastic") || textLower.includes("trash") || textLower.includes("bin")) {
+      } else if (textLower.includes("recycl") || textLower.includes("sustainab") || textLower.includes("plastic") || textLower.includes("trash") || textLower.includes("bin")) {
         reply = responses.sustainability("plastic");
       } else if (textLower.includes("wait") || textLower.includes("queue") || textLower.includes("time") || textLower.includes("shortest")) {
         let shortestGate = "Gate D";
