@@ -1,0 +1,24 @@
+# Environment variables
+.env
+*.env
+.env.local
+
+# Python caches and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Node/React dependencies and builds
+node_modules/
+dist/
+build/
+.eslintcache
+
+# OS-specific metadata files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,5 @@
+google-adk[a2a]
+fastapi
+uvicorn
+pydantic
+google-genai
