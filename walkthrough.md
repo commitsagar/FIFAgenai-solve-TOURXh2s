@@ -40,6 +40,7 @@ FIFA-PromptWars/
 │   └── vite.config.js
 ├── tests/                        # Automated Testing Suite
 │   └── test_main.py              # Pytest/Unittest validation script
+├── dual_submission_narrative.md  # LinkedIn Case Study Narrative
 ├── requirements.txt              # Backend dependencies
 └── walkthrough.md                # Deliverable walkthrough documentation (This file)
 ```
